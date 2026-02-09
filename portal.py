@@ -5,7 +5,7 @@ import pandas as pd
 
 # --- 參數設定 ---
 CONFIG_FILE = "money_config.json"
-VERSION = "v2.4 (Morandi Colors)"
+VERSION = "v2.5 (Pastel Colors)"
 
 # --- 預設設定檔 ---
 DEFAULT_CONFIG = {
@@ -44,14 +44,14 @@ DEFAULT_CONFIG = {
 }
 
 # --- 頁面設定 ---
-st.set_page_config(page_title="馬尼通訊系統入口", page_icon="📱", layout="wide")
+st.set_page_config(page_title="馬尼通訊 工具系統入口", page_icon="📱", layout="wide")
 
 # ==========================================
-# 🎨 v2.4 CSS：莫蘭迪低飽和色系
+# 🎨 v2.5 CSS：輕柔粉彩色系 (Pastel)
 # ==========================================
 st.markdown("""
     <style>
-    /* 1. 部門標題 (稍微降低漸層的飽和度，配合整體風格) */
+    /* 1. 部門標題 (維持漸層，但稍微調亮一點點以配合粉嫩按鈕) */
     .dept-header {
         padding: 12px;
         border-radius: 12px 12px 0 0;
@@ -61,7 +61,7 @@ st.markdown("""
         font-weight: 800;
         letter-spacing: 1px;
         margin-bottom: 0px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* 陰影變淡 */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
 
     /* 2. 卡片容器 */
@@ -81,61 +81,61 @@ st.markdown("""
         transform: translateY(-3px);
     }
 
-    /* 3. 色彩定義：使用莫蘭迪/不飽和色系 */
+    /* 3. 色彩定義：更加輕柔的粉彩系 */
     
-    /* 行銷部 - 柔和陶土色 */
-    .header-orange { background: linear-gradient(135deg, #F5B099, #E67E5D); }
-    .bg-orange { background-color: rgba(245, 176, 153, 0.08); } 
-    .btn-orange { background-color: #D48C76; } /* 不飽和陶土色 */
+    /* 行銷部 - 蜜桃粉橘 */
+    .header-orange { background: linear-gradient(135deg, #FFB4A2, #E5989B); } /* 標題也變柔和 */
+    .bg-orange { background-color: rgba(255, 180, 162, 0.08); } 
+    .btn-orange { background-color: #E59E8C; } /* 更淡的陶土色 */
 
-    /* 電商部 - 霧霾藍 */
-    .header-blue { background: linear-gradient(135deg, #93B8D9, #6B9AC4); }
-    .bg-blue { background-color: rgba(147, 184, 217, 0.08); }
-    .btn-blue { background-color: #6B8EAD; color: white !important; } /* 不飽和灰藍色 */
+    /* 電商部 - 空氣藍 */
+    .header-blue { background: linear-gradient(135deg, #A2D2FF, #8ECAE6); }
+    .bg-blue { background-color: rgba(162, 210, 255, 0.08); }
+    .btn-blue { background-color: #87A8C9; color: white !important; } /* 更淡的鋼藍色 */
 
-    /* 管理部 - 藕紫色 */
-    .header-purple { background: linear-gradient(135deg, #B5A4C9, #958BB6); }
-    .bg-purple { background-color: rgba(181, 164, 201, 0.08); }
-    .btn-purple { background-color: #8E7F9F; } /* 不飽和紫灰色 */
+    /* 管理部 - 丁香紫 */
+    .header-purple { background: linear-gradient(135deg, #CDB4DB, #B5838D); }
+    .bg-purple { background-color: rgba(205, 180, 219, 0.08); }
+    .btn-purple { background-color: #A89BC0; } /* 更淡的藕紫色 */
     
     /* 鎖定狀態 */
-    .header-gray { background: linear-gradient(135deg, #D7D7D7, #9E9E9E); }
+    .header-gray { background: linear-gradient(135deg, #E0E0E0, #BDBDBD); }
     .bg-gray { background-color: #fdfdfd; }
 
-    /* 4. 文字顏色 (改為深灰，比較柔和) */
+    /* 4. 文字顏色 (深灰，保持閱讀性) */
     .card-title {
         font-size: 1.15em;
         font-weight: bold;
-        color: #4A4A4A; 
+        color: #555; 
         margin-bottom: 5px;
     }
     .card-desc {
         font-size: 0.9em;
-        color: #7A7A7A;
+        color: #888;
         margin-bottom: 15px;
         min-height: 40px;
         line-height: 1.4;
     }
 
-    /* 5. 按鈕樣式 (增加圓潤感) */
+    /* 5. 按鈕樣式 */
     .custom-btn {
         display: block;
         width: 100%;
         padding: 8px 10px;
         text-align: center;
-        border-radius: 8px; /* 圓角 */
+        border-radius: 8px;
         text-decoration: none !important;
-        font-weight: 500; /* 字體不用太粗 */
+        font-weight: 600;
         letter-spacing: 0.5px;
         transition: all 0.3s ease;
         color: white !important;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 輕微陰影 */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         border: none;
     }
     .custom-btn:hover {
         transform: translateY(-2px);
-        filter: brightness(0.95); /* 懸浮時稍微變暗一點點，增加紮實感 */
-        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        filter: brightness(0.95);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     
     </style>
@@ -186,9 +186,9 @@ if "is_manager" not in st.session_state:
 
 config = st.session_state.config
 
-# --- 主畫面標題 ---
-st.markdown("# 📱 馬尼通訊：智慧運營入口")
-st.caption("Money Communications System Portal | 整合營運中心")
+# --- 主畫面標題 (更名) ---
+st.markdown("# 📱 馬尼通訊 工具系統入口")
+st.caption("Money Communications Tools Portal | 整合營運中心")
 st.markdown("---")
 
 # ==========================================
@@ -239,7 +239,7 @@ with col3:
             # === 未登入 ===
             st.markdown(f"""
             <div class="link-card bg-gray">
-                <div class="card-title" style="text-align:center; color:#777;">🔒 權限鎖定</div>
+                <div class="card-title" style="text-align:center; color:#888;">🔒 權限鎖定</div>
                 <div class="card-desc" style="text-align:center;">此區域僅限管理層存取</div>
             </div>
             """, unsafe_allow_html=True)
@@ -255,7 +255,7 @@ with col3:
 st.markdown("---")
 
 # ==========================================
-# 後台管理 (Excel 式編輯器)
+# Excel 式編輯器 (後台管理)
 # ==========================================
 if st.session_state.is_manager:
     with st.expander("⚙️ 系統參數設定 (後台管理)"):

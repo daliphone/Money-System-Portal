@@ -5,7 +5,7 @@ import pandas as pd
 
 # --- 參數設定 ---
 CONFIG_FILE = "money_config.json"
-VERSION = "v2.2 (UI Polish)"
+VERSION = "v2.4 (Morandi Colors)"
 
 # --- 預設設定檔 ---
 DEFAULT_CONFIG = {
@@ -47,89 +47,95 @@ DEFAULT_CONFIG = {
 st.set_page_config(page_title="馬尼通訊系統入口", page_icon="📱", layout="wide")
 
 # ==========================================
-# 🎨 v2.2 CSS 魔法：背景色、大標題、按鈕特效
+# 🎨 v2.4 CSS：莫蘭迪低飽和色系
 # ==========================================
 st.markdown("""
     <style>
-    /* 1. 部門標題放大與美化 */
+    /* 1. 部門標題 (稍微降低漸層的飽和度，配合整體風格) */
     .dept-header {
         padding: 12px;
         border-radius: 12px 12px 0 0;
         color: white;
         text-align: center;
-        font-size: 1.6em; /* 字體放大 */
-        font-weight: 800; /* 加粗 */
+        font-size: 1.6em;
+        font-weight: 800;
         letter-spacing: 1px;
         margin-bottom: 0px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* 陰影變淡 */
     }
 
-    /* 2. 卡片容器：加上淡淡背景色 */
+    /* 2. 卡片容器 */
     .link-card {
-        border-radius: 0 0 12px 12px; /* 下方圓角 */
+        border-radius: 0 0 12px 12px;
         padding: 15px;
         margin-bottom: 15px;
-        border-left: 1px solid rgba(0,0,0,0.05);
-        border-right: 1px solid rgba(0,0,0,0.05);
-        border-bottom: 1px solid rgba(0,0,0,0.05);
+        border-left: 1px solid rgba(0,0,0,0.03);
+        border-right: 1px solid rgba(0,0,0,0.03);
+        border-bottom: 1px solid rgba(0,0,0,0.03);
         transition: transform 0.2s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     .link-card:hover {
-        transform: translateY(-3px); /* 卡片懸浮效果 */
+        transform: translateY(-3px);
     }
 
-    /* 3. 主題色定義 (標題背景 + 卡片淡色背景) */
-    /* 行銷部 - 橘色 */
-    .header-orange { background: linear-gradient(135deg, #FF9966, #FF5E62); }
-    .bg-orange { background-color: rgba(255, 153, 102, 0.08); } /* 8% 透明度 */
-    .btn-orange { background-color: #FF5E62; }
-
-    /* 電商部 - 藍色 */
-    .header-blue { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-    .bg-blue { background-color: rgba(79, 172, 254, 0.08); }
-    .btn-blue { background-color: #00f2fe; color: #005bea !important; }
-
-    /* 管理部 - 紫色 */
-    .header-purple { background: linear-gradient(135deg, #667eea, #764ba2); }
-    .bg-purple { background-color: rgba(102, 126, 234, 0.08); }
-    .btn-purple { background-color: #764ba2; }
+    /* 3. 色彩定義：使用莫蘭迪/不飽和色系 */
     
-    /* 鎖定狀態 - 灰色 */
-    .header-gray { background: linear-gradient(135deg, #bdc3c7, #2c3e50); }
-    .bg-gray { background-color: #f8f9fa; }
+    /* 行銷部 - 柔和陶土色 */
+    .header-orange { background: linear-gradient(135deg, #F5B099, #E67E5D); }
+    .bg-orange { background-color: rgba(245, 176, 153, 0.08); } 
+    .btn-orange { background-color: #D48C76; } /* 不飽和陶土色 */
 
-    /* 4. 卡片內容排版 */
+    /* 電商部 - 霧霾藍 */
+    .header-blue { background: linear-gradient(135deg, #93B8D9, #6B9AC4); }
+    .bg-blue { background-color: rgba(147, 184, 217, 0.08); }
+    .btn-blue { background-color: #6B8EAD; color: white !important; } /* 不飽和灰藍色 */
+
+    /* 管理部 - 藕紫色 */
+    .header-purple { background: linear-gradient(135deg, #B5A4C9, #958BB6); }
+    .bg-purple { background-color: rgba(181, 164, 201, 0.08); }
+    .btn-purple { background-color: #8E7F9F; } /* 不飽和紫灰色 */
+    
+    /* 鎖定狀態 */
+    .header-gray { background: linear-gradient(135deg, #D7D7D7, #9E9E9E); }
+    .bg-gray { background-color: #fdfdfd; }
+
+    /* 4. 文字顏色 (改為深灰，比較柔和) */
     .card-title {
         font-size: 1.15em;
         font-weight: bold;
-        color: #333;
+        color: #4A4A4A; 
         margin-bottom: 5px;
     }
     .card-desc {
         font-size: 0.9em;
-        color: #666;
+        color: #7A7A7A;
         margin-bottom: 15px;
         min-height: 40px;
         line-height: 1.4;
     }
 
-    /* 5. 客製化按鈕 (取代 Streamlit 原生按鈕以獲得更多特效) */
+    /* 5. 按鈕樣式 (增加圓潤感) */
     .custom-btn {
         display: block;
         width: 100%;
         padding: 8px 10px;
         text-align: center;
-        border-radius: 8px;
-        text-decoration: none !important; /* 去除底線 */
-        font-weight: bold;
+        border-radius: 8px; /* 圓角 */
+        text-decoration: none !important;
+        font-weight: 500; /* 字體不用太粗 */
+        letter-spacing: 0.5px;
         transition: all 0.3s ease;
         color: white !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 輕微陰影 */
+        border: none;
     }
     .custom-btn:hover {
-        transform: scale(1.02); /* 放大 */
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* 陰影加深 */
-        filter: brightness(1.1); /* 變亮 */
+        transform: translateY(-2px);
+        filter: brightness(0.95); /* 懸浮時稍微變暗一點點，增加紮實感 */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
     
     </style>
@@ -151,7 +157,6 @@ def save_config(new_config):
         json.dump(new_config, f, ensure_ascii=False, indent=4)
 
 def render_styled_header(text, icon, theme):
-    """渲染大標題"""
     st.markdown(f"""
         <div class="dept-header header-{theme}">
             {icon} {text}
@@ -159,17 +164,13 @@ def render_styled_header(text, icon, theme):
     """, unsafe_allow_html=True)
 
 def render_html_card(link, theme):
-    """
-    渲染帶有背景色與特效的 HTML 卡片
-    (為了達到背景色需求，我們這裡改用 HTML 渲染而非 st.container)
-    """
-    # 針對藍色主題的按鈕文字做一點深色調整，避免看不清楚
     btn_style = f"btn-{theme}"
-    
     html_code = f"""
     <div class="link-card bg-{theme}">
-        <div class="card-title">{link['name']}</div>
-        <div class="card-desc">{link.get('desc', '')}</div>
+        <div>
+            <div class="card-title">{link['name']}</div>
+            <div class="card-desc">{link.get('desc', '')}</div>
+        </div>
         <a href="{link['url']}" target="_blank" class="custom-btn {btn_style}">
             前往系統 🚀
         </a>
@@ -220,18 +221,13 @@ with col3:
     dept_name = "管理部"
     dept = config["departments"].get(dept_name)
     if dept:
-        # 判斷主題色
         theme = dept.get('theme', 'purple') if st.session_state.is_manager else 'gray'
         render_styled_header(dept_name, dept['icon'], theme)
         
         if st.session_state.is_manager:
             # === 已登入 ===
-            # 包裹一個容器來畫背景 (模擬卡片區)
             st.markdown(f'<div class="bg-{theme}" style="padding:10px; border-radius:0 0 12px 12px;">', unsafe_allow_html=True)
             for link in dept["links"]:
-                # 這裡為了不要雙重背景，我們微調一下傳入的 theme
-                # 但為了保持一致性，我們還是用 render_html_card，只是 HTML 結構會自動堆疊
-                # 簡單來說：直接呼叫即可
                 render_html_card(link, 'purple') 
             st.markdown('</div>', unsafe_allow_html=True)
             
@@ -243,7 +239,7 @@ with col3:
             # === 未登入 ===
             st.markdown(f"""
             <div class="link-card bg-gray">
-                <div class="card-title" style="text-align:center;">🔒 權限鎖定</div>
+                <div class="card-title" style="text-align:center; color:#777;">🔒 權限鎖定</div>
                 <div class="card-desc" style="text-align:center;">此區域僅限管理層存取</div>
             </div>
             """, unsafe_allow_html=True)
@@ -259,7 +255,7 @@ with col3:
 st.markdown("---")
 
 # ==========================================
-# Excel 式編輯器 (功能維持，僅優化顯示)
+# 後台管理 (Excel 式編輯器)
 # ==========================================
 if st.session_state.is_manager:
     with st.expander("⚙️ 系統參數設定 (後台管理)"):

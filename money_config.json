@@ -1,0 +1,63 @@
+{
+    "admin_password": "0526",
+    "departments": {
+        "行銷部": {
+            "icon": "📢",
+            "protected": false,
+            "links": [
+                {
+                    "name": "馬尼行銷活動進程",
+                    "url": "https://money-marketing-room.streamlit.app/",
+                    "desc": "活動排程與進度"
+                },
+                {
+                    "name": "馬尼活動發想規劃",
+                    "url": "https://moneyweb.streamlit.app/",
+                    "desc": "活動的提案與設定"
+                }
+            ]
+        },
+        "電商部": {
+            "icon": "🛒",
+            "protected": false,
+            "links": [
+                {
+                    "name": "蝦皮試算",
+                    "url": "https://shopee-money.streamlit.app/",
+                    "desc": "獲利試算"
+                },
+                {
+                    "name": "鮮拾試算",
+                    "url": "https://10mart-calculator.streamlit.app/",
+                    "desc": "獲利試算"
+                },
+                {
+                    "name": "奇摩拍賣",
+                    "url": "https://money-yahoo-auction-calculator.streamlit.app/",
+                    "desc": "獲利試算"
+                },
+                {
+                    "name": "Friday購物",
+                    "url": "https://fridayshop-calculator.streamlit.app/",
+                    "desc": "獲利試算"
+                }
+            ]
+        },
+        "管理部": {
+            "icon": "💰",
+            "protected": true,
+            "links": [
+                {
+                    "name": "業績戰情室",
+                    "url": "https://money-real-timesalesperformancereport.streamlit.app/",
+                    "desc": "每月業績"
+                },
+                {
+                    "name": "人員評核",
+                    "url": "https://hqkpiapp.streamlit.app/",
+                    "desc": "績效評分"
+                }
+            ]
+        }
+    }
+}
